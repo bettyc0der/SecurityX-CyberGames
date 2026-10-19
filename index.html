@@ -13,7 +13,7 @@
 </style></head><body><div class="wrap">
 <header class="top"><a href="https://cyber.charlottesalcedo.com/cyber-games/">← Return to Bettycoder Security Labs</a><div class="crest" aria-hidden="true">⚔️</div><h1 class="title">CYBERGAMES</h1><p class="tagline">The Quest Hall · Play · Practice · Conquer</p><div class="orn"></div>
 <nav class="quick" aria-label="Game categories"><a href="#securityx">🛡️ SecurityX Games</a><a href="#cysa">🕵️ CySA+ Games</a><a href="#pentest">⚔️ PenTest+ Games</a></nav></header>
-<div class="music-panel" style="text-align:center;margin:-12px auto 20px"><button id="musicToggle" type="button" style="padding:12px 25px;color:#ffe5af;background:linear-gradient(#684223,#24170c);border:3px ridge #e9bd75;border-radius:6px;cursor:pointer;font:bold 16px Georgia">♫ Play Game of Codes theme</button><div style="color:#b7a078;font-size:12px;margin-top:6px">Fantasy theme starts on click · Sound optional</div></div><main>
+<div class="music-panel" style="text-align:center;margin:-12px auto 20px"><button id="musicToggle" type="button" style="padding:12px 25px;color:#ffe5af;background:linear-gradient(#684223,#24170c);border:3px ridge #e9bd75;border-radius:6px;cursor:pointer;font:bold 16px Georgia">♫ Play Game of Codes theme</button><div style="color:#b7a078;font-size:12px;margin-top:6px">Fantasy music attempts to start automatically · Tap once if your browser blocks autoplay</div></div><main>
 <section id="securityx"><h2>🛡️ SecurityX Games</h2><div class="games">
 <a class="game" href="./xmatch.html"><span class="sigil">🎄</span><span><strong>XMatch</strong><small>Christmas Wonderland · Matching challenge</small></span></a>
 <a class="game" href="./jeopardy.html"><span class="sigil">🏆</span><span><strong>SecurityX Jeopardy</strong><small>Knowledge challenge · Original question bank</small></span></a>
@@ -25,4 +25,18 @@
 </div></section>
 <section id="cysa"><h2>🕵️ CySA+ Games</h2><div class="pending">This realm is being prepared · Games coming soon</div></section>
 <section id="pentest"><h2>⚔️ PenTest+ Games</h2><div class="pending">This realm is being prepared · Games coming soon</div></section>
-</main><footer class="footer">Bettycoder Security Labs · <a href="https://github.com/bettyc0der/SecurityX-CyberGames">View GitHub repository</a></footer></div><script>(function(){let ctx=null,timer=null,step=0;const btn=document.getElementById('musicToggle'),notes=[220,329.63,440,392,261.63,329.63,493.88,440,196,293.66,392,349.23,220,329.63,392,293.66];function playTone(f,d=0.36){if(!ctx)return;const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain(),sub=ctx.createOscillator();o.type='triangle';o.frequency.value=f;sub.type='sine';sub.frequency.value=f/2;o.connect(g);sub.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055,t+.035);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);sub.start(t);o.stop(t+d+.03);sub.stop(t+d+.03)}function tick(){playTone(notes[step%notes.length],.39);if(step%4===0)playTone(notes[step%notes.length]/2,.8);step++}btn.onclick=async()=>{if(timer){clearInterval(timer);timer=null;btn.textContent='♫ Play Game of Codes theme';if(ctx){await ctx.close();ctx=null}return}try{ctx=new(window.AudioContext||window.webkitAudioContext)();await ctx.resume();step=0;tick();timer=setInterval(tick,480);btn.textContent='♫ Pause fantasy theme'}catch(e){btn.textContent='Sound unavailable in this browser'}};document.addEventListener('visibilitychange',()=>{if(document.hidden&&timer)btn.click()})})();</script></body></html>
+</main><footer class="footer">Bettycoder Security Labs · <a href="https://github.com/bettyc0der/SecurityX-CyberGames">View GitHub repository</a></footer></div><script>(function(){
+let ctx=null,timer=null,step=0,started=false,manuallyPaused=false;
+const btn=document.getElementById('musicToggle');
+const notes=[220,329.63,440,392,261.63,329.63,493.88,440,196,293.66,392,349.23,220,329.63,392,293.66];
+function tone(f,d=.36){if(!ctx||ctx.state!=='running')return;const t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain(),sub=ctx.createOscillator();o.type='triangle';o.frequency.value=f;sub.type='sine';sub.frequency.value=f/2;o.connect(g);sub.connect(g);g.connect(ctx.destination);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055,t+.035);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);sub.start(t);o.stop(t+d+.03);sub.stop(t+d+.03)}
+function tick(){tone(notes[step%notes.length]);if(step%4===0)tone(notes[step%notes.length]/2,.8);step++}
+async function start(){if(started||manuallyPaused)return;try{ctx=ctx||new(window.AudioContext||window.webkitAudioContext)();const pending=ctx.resume();if(ctx.state==='suspended'){btn.textContent='♫ Tap to enable fantasy music';return}await pending;if(ctx.state!=='running')return;started=true;step=0;tick();timer=setInterval(tick,480);btn.textContent='♫ Pause fantasy music';}catch(e){btn.textContent='♫ Tap to enable fantasy music'}}
+async function stop(){manuallyPaused=true;if(timer){clearInterval(timer);timer=null}started=false;if(ctx&&ctx.state==='running')await ctx.suspend();btn.textContent='♫ Play fantasy music'}
+btn.onclick=async()=>{if(started){await stop()}else{manuallyPaused=false;await start()}};
+function unlock(){if(!started&&!manuallyPaused)start()}
+document.addEventListener('pointerdown',unlock,{once:true});
+document.addEventListener('keydown',unlock,{once:true});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&started)stop()});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();</script></body></html>
