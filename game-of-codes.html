@@ -75,6 +75,40 @@ linear-gradient(180deg,transparent 0 63%, #0b130b 63% 100%);
 .camp .fire{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:34px;height:46px;background:radial-gradient(circle at 50% 76%,#ffd573 0 20%,transparent 21%),radial-gradient(circle at 50% 60%,#ff9f2e 0 35%,transparent 36%),radial-gradient(circle at 50% 35%,#ff6200 0 52%,transparent 53%);filter:blur(.6px);animation:flicker 1.6s ease-in-out infinite alternate}
 .footer{text-align:center;color:#cfbddf;margin-top:20px;font-size:.85rem}
 @media(max-width:860px){.layout{grid-template-columns:1fr}.quest-list{max-height:none}}
+
+/* Ornate parchment answer banners inspired by the alchemist workshop artwork */
+.options{gap:13px}
+.option{
+  position:relative;isolation:isolate;display:flex;align-items:center;gap:13px;
+  width:100%;min-height:70px;padding:15px 25px 15px 31px;
+  color:#382216!important;text-align:left;
+  font-family:Georgia,"Times New Roman",serif;font-weight:800;font-size:clamp(15px,2.8vw,19px);line-height:1.3;
+  border:0;border-radius:0;background:transparent!important;
+  clip-path:polygon(0 50%,5% 12%,8% 6%,92% 6%,95% 12%,100% 50%,95% 88%,92% 94%,8% 94%,5% 88%);
+  filter:drop-shadow(0 5px 2px #000);
+  box-shadow:none!important;transition:transform .2s,filter .2s;
+}
+.option::before{
+  content:"";position:absolute;z-index:-2;inset:0;
+  background:linear-gradient(135deg,#3b3029 0%,#d6a74e 7%,#51362a 15%,#b78b43 50%,#48362d 85%,#eac16e 94%,#392b26 100%);
+  clip-path:inherit;
+}
+.option::after{
+  content:"";position:absolute;z-index:-1;inset:5px 8px;
+  background:
+   radial-gradient(ellipse at 50% 40%,#fff4d3 0%,#ead2a5 60%,#c9a77d 100%);
+  clip-path:polygon(0 50%,5% 10%,94% 10%,100% 50%,94% 90%,5% 90%);
+}
+.option strong{flex:none;color:#713d16;font:900 24px Georgia;text-shadow:0 1px #fff1c7}
+.option:hover:not(:disabled){transform:translateY(-3px) scale(1.015);filter:drop-shadow(0 0 13px #ffd56e)}
+.option:active:not(:disabled){transform:translateY(1px) scale(.99)}
+.option:focus-visible{outline:3px solid #aaf7ff;outline-offset:3px}
+.option.correct::before{background:linear-gradient(#d4fc94,#3a8a36,#a8e76b)}
+.option.correct::after{background:linear-gradient(#d3ffc1,#9ede9b)}
+.option.wrong::before{background:linear-gradient(#ffa0a0,#8c2525,#eb6565)}
+.option.wrong::after{background:linear-gradient(#ffe4d8,#f4aea8)}
+.option:disabled{opacity:1;cursor:default}
+@media(max-width:540px){.option{min-height:67px;padding:13px 17px 13px 23px;font-size:15px}.option strong{font-size:20px}}
 </style>
 </head>
 <body>
