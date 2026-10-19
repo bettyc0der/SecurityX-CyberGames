@@ -109,10 +109,28 @@ linear-gradient(180deg,transparent 0 63%, #0b130b 63% 100%);
 .option.wrong::after{background:linear-gradient(#ffe4d8,#f4aea8)}
 .option:disabled{opacity:1;cursor:default}
 @media(max-width:540px){.option{min-height:67px;padding:13px 17px 13px 23px;font-size:15px}.option strong{font-size:20px}}
+/* 2026 Alchemist workshop redesign: actual opening screen, not just button recolor */
+.alchemy-menu{position:fixed;z-index:50;inset:0;display:grid;place-items:center;padding:8px;background:radial-gradient(ellipse at center,#392316,#09080a 80%);overflow:auto}
+.alchemy-menu.hidden{display:none}
+.workshop{position:relative;width:min(780px,100%);min-height:min(94dvh,780px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:clamp(20px,4vw,35px);border:13px ridge #3d332d;outline:3px solid #14100d;box-shadow:inset 0 0 0 5px #846746,inset 0 0 70px #000c,0 0 60px #000;background:repeating-linear-gradient(16deg,#29180f 0 18px,#3c2418 19px 35px,#1d120e 36px 40px)}
+.workshop:before,.workshop:after{content:"❧";position:absolute;color:#c69b63;font-size:clamp(30px,5vw,70px);top:0;text-shadow:0 0 8px #050404}
+.workshop:before{left:5px}.workshop:after{right:5px;transform:scaleX(-1)}
+.workshop-title{z-index:2;display:grid;justify-items:center;max-width:94%;padding:12px 30px;margin:8px 0 12px;text-align:center;color:#ffdfa0;font-family:Georgia,serif;text-shadow:0 3px 1px #251005,0 6px 7px #000,0 0 12px #e09b31;letter-spacing:2px;border-radius:24px;background:radial-gradient(#4f2b16 25%,#23120c 74%);border:5px ridge #8a663b;box-shadow:0 7px 20px #000}
+.workshop-title small{font-size:clamp(12px,2vw,19px)}.workshop-title strong{font-size:clamp(23px,6vw,51px);line-height:1.07}.workshop-title span{font-size:clamp(12px,2vw,17px);color:#fce3a2;margin-top:7px}
+.scroll-menu{z-index:2;position:relative;width:min(470px,98%);padding:clamp(17px,4vw,34px) clamp(13px,3vw,30px);display:grid;gap:15px;background:radial-gradient(ellipse at 40% 20%,#fff0c5,#d6b486 85%,#a47a4f);border:10px ridge #46362d;outline:2px solid #99816d;box-shadow:inset 0 0 40px #8d5728aa,0 12px 25px #000b}
+.scroll-menu:before,.scroll-menu:after{content:"✥";position:absolute;color:#49372d;font-size:25px}.scroll-menu:before{top:0;left:7px}.scroll-menu:after{bottom:0;right:7px}
+.scroll-button{position:relative;display:grid;place-items:center;gap:3px;min-height:76px;width:100%;padding:8px 22px;color:#382017;text-decoration:none;font-family:Georgia,serif;clip-path:polygon(0 50%,8% 4%,92% 4%,100% 50%,92% 96%,8% 96%);border:0;outline:0;background:linear-gradient(135deg,#5a432e,#caa466 9%,#f2ddb0 16%,#f4e0b7 80%,#b8915a 91%,#3d3025);filter:drop-shadow(0 4px 2px #6a462b);transition:transform .2s,filter .2s}
+.scroll-button b{font-size:clamp(19px,3vw,29px);letter-spacing:1px}.scroll-button small{font-size:clamp(12px,2vw,15px)}.scroll-button:hover,.scroll-button:focus-visible{transform:translateY(-3px) scale(1.02);filter:drop-shadow(0 0 12px #e4a838)}.scroll-button:active{transform:translateY(2px)}
+.menu-credit{text-align:center;color:#5c3925;font-size:12px;margin:4px 0}.shelf{position:absolute;top:25%;bottom:8%;width:18%;z-index:1;display:flex;flex-direction:column;justify-content:space-around;align-items:center;font-size:clamp(22px,5vw,44px);border:6px ridge #3d2617;background:repeating-linear-gradient(180deg,#22140e 0 22%,#765138 23% 25%,#21130b 26% 50%);box-shadow:inset 0 0 17px #000}
+.left-shelf{left:1%}.right-shelf{right:1%}.cauldron{position:absolute;bottom:2%;left:5%;color:#b4ff8d;font-size:38px;text-shadow:0 0 18px #aeff7c;animation:flicker 1.5s infinite alternate}.cauldron span{font-size:19px;display:block}
+body.game-active .alchemy-menu{display:none}
+body.game-active .wrap{display:block}
+body:not(.game-active) .wrap{display:none}
+@media(max-width:600px){.workshop{min-height:96dvh;padding:15px 4px}.shelf{opacity:.32;width:17%}.scroll-menu{width:82%;margin:auto}.workshop-title{padding:10px 15px;max-width:96%}.scroll-button{min-height:66px}.cauldron{display:none}}
 </style>
 </head>
 <body>
-<div class="forest"></div>
+<section id="alchemyMenu" class="alchemy-menu" aria-label="Game of Codes alchemist workshop menu"><div class="workshop"><div class="shelf left-shelf" aria-hidden="true"><span>⚗️</span><span>🕯️</span><span>🧪</span><span>🍶</span></div><div class="shelf right-shelf" aria-hidden="true"><span>📜</span><span>🧴</span><span>📚</span><span>🕯️</span></div><div class="workshop-title"><small>THE</small><strong>ALCHEMIST'S</strong><strong>CRUCIBLE</strong><span>✦ GAME OF CODES ✦</span></div><div class="scroll-menu"><button id="menuStart" class="scroll-button"><b>⚗ START ⚔</b><small>Embark on your cyber quest</small></button><button id="menuOptions" class="scroll-button"><b>⚙ OPTIONS</b><small>Settings · Music · Audio</small></button><button id="menuCredits" class="scroll-button"><b>📜 CREDITS</b><small>Meet the creator</small></button><a href="./index.html" class="scroll-button"><b>🚪 EXIT</b><small>Return to CyberGames</small></a><p class="menu-credit" id="menuInfo">© 2026 Charlotte Payan-Salcedo · Bettycoder Security Labs</p></div><div class="cauldron" aria-hidden="true">♨<span>🔥</span></div></div></section><div class="forest"></div>
 <div class="fireflies" id="fireflies"></div>
 <div class="wrap">
   <header class="header">
@@ -175,6 +193,9 @@ for(let i=0;i<34;i++){
   fireflyBox.appendChild(f);
 }
 
+document.getElementById('menuStart').addEventListener('click',()=>{document.body.classList.add('game-active');startGame(false);window.scrollTo(0,0)});
+document.getElementById('menuOptions').addEventListener('click',()=>{document.body.classList.add('game-active');document.getElementById('vol').focus();window.scrollTo(0,0)});
+document.getElementById('menuCredits').addEventListener('click',()=>{const info=document.getElementById('menuInfo');info.textContent='Created by Charlotte Payan-Salcedo · cyber.charlottesalcedo.com · GitHub: bettyc0der';});
 const els = {
   mode: document.getElementById('mode'),
   startBtn: document.getElementById('startBtn'),
