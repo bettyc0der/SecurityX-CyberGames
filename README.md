@@ -22,6 +22,9 @@
 | 🏆 **SecurityX Jeopardy** | **[▶ PLAY JEOPARDY](https://bettyc0der.github.io/SecurityX-CyberGames/jeopardy.html)** |
 | 🎤 **Cyber Feud** | **[▶ PLAY CYBER FEUD](https://bettyc0der.github.io/SecurityX-CyberGames/cyber-feud.html)** |
 | 🧚 **Chapter Quest** | **[▶ PLAY CHAPTER QUEST](https://bettyc0der.github.io/SecurityX-CyberGames/chapter-quest.html)** |
+| 👻 **Spooky Flash** | **[▶ PLAY SPOOKY FLASH](https://bettyc0der.github.io/SecurityX-CyberGames/spooky-flash.html)** |
+| ⚔️ **Game of Codes** | **[▶ PLAY GAME OF CODES](https://bettyc0der.github.io/SecurityX-CyberGames/game-of-codes.html)** |
+| ⚡ **Quiz Arcade** | **[▶ OPEN QUIZ ARCADE](https://cyber.charlottesalcedo.com/securityx-quiz-arcade/)** *(WordPress page; rebuild pending)* |
 
 ### 🕵️ CySA+ Games
 
